@@ -1,5 +1,7 @@
 package bbejeck.chapter_2.consumer;
 
+import bbejeck.model.PurchaseKey;
+import bbejeck.util.serializer.JsonDeserializer;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -40,7 +42,7 @@ public class ThreadedConsumerExample {
             Consumer<String, String> consumer = null;
             try {
                 consumer = new KafkaConsumer<>(properties);
-                consumer.subscribe(Collections.singletonList("test-topic"));
+                consumer.subscribe(Collections.singletonList("some-topic"));
                 while (!doneConsuming) {
                     ConsumerRecords<String, String> records = consumer.poll(5000);
                     for (ConsumerRecord<String, String> record : records) {
@@ -74,7 +76,8 @@ public class ThreadedConsumerExample {
         properties.put("auto.offset.reset", "earliest");
         properties.put("enable.auto.commit", "true");
         properties.put("auto.commit.interval.ms", "3000");
-        properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("key.deserializer", JsonDeserializer.class.getName());
+        properties.put("serializedClass", PurchaseKey.class);
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 
         return properties;

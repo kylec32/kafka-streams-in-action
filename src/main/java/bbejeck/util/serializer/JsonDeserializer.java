@@ -38,12 +38,13 @@ public class JsonDeserializer<T> implements Deserializer<T> {
 
     public JsonDeserializer(Class<T> deserializedClass) {
         this.deserializedClass = deserializedClass;
-        init();
-
     }
 
     public JsonDeserializer(Type reflectionTypeToken) {
         this.reflectionTypeToken = reflectionTypeToken;
+    }
+
+    public JsonDeserializer() {
         init();
     }
 
@@ -51,9 +52,6 @@ public class JsonDeserializer<T> implements Deserializer<T> {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(FixedSizePriorityQueue.class, new FixedSizePriorityQueueAdapter().nullSafe());
         gson = builder.create();
-    }
-
-    public JsonDeserializer() {
     }
 
     @Override

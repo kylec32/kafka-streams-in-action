@@ -2,6 +2,7 @@ package bbejeck.chapter_2.producer;
 
 import bbejeck.chapter_2.partitioner.PurchaseKeyPartitioner;
 import bbejeck.model.PurchaseKey;
+import bbejeck.util.serializer.JsonSerializer;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -26,7 +27,7 @@ public class SimpleProducer {
 
         Properties properties = new Properties();
         properties.put("bootstrap.servers", "localhost:9092");
-        properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put("key.serializer", JsonSerializer.class.getName());
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("acks", "1");
         properties.put("retries", "3");
