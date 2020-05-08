@@ -37,10 +37,12 @@ public class JsonDeserializer<T> implements Deserializer<T> {
     private Type reflectionTypeToken;
 
     public JsonDeserializer(Class<T> deserializedClass) {
+        this();
         this.deserializedClass = deserializedClass;
     }
 
     public JsonDeserializer(Type reflectionTypeToken) {
+        this();
         this.reflectionTypeToken = reflectionTypeToken;
     }
 
